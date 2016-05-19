@@ -9,9 +9,9 @@ import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.Watcher.Event.KeeperState;
 
 /**
- * ´´½¨µÈ´ı½¨Á¢ÓëZookeeperÁ¬½ÓµÄ¸¨ÖúÀà
+ * zookeeperä¸å®¢æˆ·ç«¯è¿æ¥è¾…åŠ©ç±»
  * @author zhengsy
- * 2016Äê5ÔÂ16ÈÕ
+ * 2016-5-18
  */
 public class ConnectionWatcher implements Watcher {
 	

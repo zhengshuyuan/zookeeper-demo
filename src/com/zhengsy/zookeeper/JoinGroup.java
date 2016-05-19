@@ -7,16 +7,16 @@ import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs.Ids;
 
 /**
- * ¼ÓÈë×é
- * 
- * @author zhengsy 2016Äê5ÔÂ16ÈÕ
+ * åŠ å…¥ç»„ç¨‹åº
+ * @author zhengsy
+ * 2016-5-19
  */
 public class JoinGroup extends ConnectionWatcher {
 
 	public void join(String groupName, String memerName)
 			throws KeeperException, InterruptedException {
 		String path = "/" + groupName + "/" + memerName;
-		// ´´½¨¶ÌÔİznode×÷Îª×éznodeµÄ×Ó½Úµã£¬Í¨¹ıĞİÃßÀ´Ä£ÄâÕıÔÚ×öµÄÄ³ÖÖ¹¤×÷£¬Ö±µ½¸Ã½ø³Ì±»Ç¿ĞĞÖÕÖ¹
+		//EPHEMERAL çŸ­æš‚è¿æ¥ï¼›OPEN_ACL_UNSAFEï¼Œå¯¹æ‰€æœ‰å¼€æ”¾
 		String createPath = zk.create(path, null, Ids.OPEN_ACL_UNSAFE,
 				CreateMode.EPHEMERAL);
 		System.out.println("create path " + createPath);
@@ -28,6 +28,7 @@ public class JoinGroup extends ConnectionWatcher {
 		joinGroup.connect(args[0]);
 		joinGroup.join(args[1], args[2]);
 
+		//æ¨¡æ‹Ÿå®¢æˆ·ç«¯åœ¨å·¥ä½œ
 		Thread.sleep(Long.MAX_VALUE);
 	}
 
