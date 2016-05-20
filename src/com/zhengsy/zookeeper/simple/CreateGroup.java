@@ -1,4 +1,4 @@
-package com.zhengsy.zookeeper;
+package com.zhengsy.zookeeper.simple;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
