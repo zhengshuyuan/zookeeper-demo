@@ -4,6 +4,7 @@ import java.nio.charset.Charset;
 
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooDefs.Ids;
 import org.apache.zookeeper.data.Stat;
 
@@ -15,6 +16,7 @@ public class ActiveKeyValueStore extends ConnectionWatcher {
 
     /**
      * 将一个关键字和值写到zookeeper
+     * 
      * @param path
      * @param value
      * @throws KeeperException
@@ -22,15 +24,29 @@ public class ActiveKeyValueStore extends ConnectionWatcher {
      */
     public void write(String path, String value) throws KeeperException, InterruptedException {
 
-        //检查znode是否存在；
+        // 检查znode是否存在；
         Stat stat = zk.exists(path, false);
         if (stat == null) {
-            //创建znode节点
+            // 创建znode节点
             zk.create(path, value.getBytes(CHARSET), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         } else {
-            //更新节点数值
+            // 更新节点数值
             zk.setData(path, value.getBytes(CHARSET), -1);
         }
+    }
+
+    /**
+     * 读取/config 配置属性
+     * 
+     * @param path
+     * @param watcher 观察对象
+     * @return
+     * @throws KeeperException
+     * @throws InterruptedException
+     */
+    public String read(String path, Watcher watcher) throws KeeperException, InterruptedException {
+        byte[] data = zk.getData(path, watcher, null/* stat */);
+        return new String(data, CHARSET);
     }
 
 }
